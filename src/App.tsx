@@ -8,9 +8,6 @@ import { AlreadyPlayedScreen } from '@/components/AlreadyPlayedScreen'
 
 const PLAYED_KEY = 'mqv_quiz_played'
 
-const totalScorable = QUESTIONS.filter(
-  (q) => q.type === 'single-choice' || (q.type === 'open' && q.correctAnswer !== undefined)
-).length
 
 export default function App() {
   // TODO: re-enable before production
