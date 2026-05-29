@@ -1,15 +1,16 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useQuiz } from '@/hooks/useQuiz'
 import { QUESTIONS } from '@/data/questions'
 import { NameScreen } from '@/components/NameScreen'
 import { QuizScreen } from '@/components/QuizScreen'
 import { LeaderboardScreen } from '@/components/LeaderboardScreen'
 import { AlreadyPlayedScreen } from '@/components/AlreadyPlayedScreen'
+import { AnswersScreen } from '@/components/AnswersScreen'
 
 const PLAYED_KEY = 'mqv_quiz_played'
 
-
-export default function App() {
+function Quiz() {
   // TODO: re-enable before production
   const [alreadyPlayed] = useState(() => false && !!localStorage.getItem(PLAYED_KEY))
   const { state, startQuiz, submitAnswer, restart } = useQuiz(QUESTIONS)
@@ -19,16 +20,13 @@ export default function App() {
     startQuiz(name)
   }
 
-  if (alreadyPlayed) {
-    return <AlreadyPlayedScreen />
-  }
+  if (alreadyPlayed) return <AlreadyPlayedScreen />
 
   return (
     <>
       {state.screen === 'name' && (
         <NameScreen onStart={handleStart} totalQuestions={QUESTIONS.length} />
       )}
-
       {state.screen === 'quiz' && (
         <QuizScreen
           question={QUESTIONS[state.currentIndex]}
@@ -37,7 +35,6 @@ export default function App() {
           onAnswer={submitAnswer}
         />
       )}
-
       {state.screen === 'results' && (
         <LeaderboardScreen
           playerName={state.playerName}
@@ -45,5 +42,16 @@ export default function App() {
         />
       )}
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Quiz />} />
+        <Route path="/answers" element={<AnswersScreen />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
