@@ -40,25 +40,41 @@ export const QUESTIONS: Question[] = [
     id: 'v1',
     subject: 'victor',
     type: 'single-choice',
-    text: '¿En qué ciudad nació Víctor?',
-    options: ['Madrid', 'Barcelona', 'Valencia', 'Sevilla'],
-    correctAnswer: 2, // ← Cambia al índice correcto
+    text: '¿Cuándo cumple los años Víctor?',
+    options: ['5 de Junio', '6 de Junio', '9 de Junio', 'Ninguna de las anteriores'],
+    correctAnswer: 3,
   },
   {
     id: 'v2',
     subject: 'victor',
-    type: 'single-choice',
-    text: '¿Cuál es la comida favorita de Víctor?',
-    options: ['Pizza', 'Sushi', 'Pasta', 'Tacos'],
-    correctAnswer: 3, // ← Cambia al índice correcto
+    type: 'open',
+    text: '¿Cuál es el segundo nombre de Víctor?',
+    placeholder: 'Escribe su segundo nombre...',
+    correctAnswer: ['ninguno', 'no tiene', ''],
   },
   {
     id: 'v3',
     subject: 'victor',
+    type: 'single-choice',
+    text: '¿Cuántos hermanos tiene Víctor?',
+    options: ['1', '2', '3', 'Es hijo único'],
+    correctAnswer: 0,
+  },
+  {
+    id: 'v4',
+    subject: 'victor',
     type: 'open',
-    text: '¿Cuál crees que es la mayor virtud de Víctor?',
-    placeholder: 'Escribe lo que te venga al corazón...',
-    // Sin correctAnswer → reflexión libre
+    text: 'A Víctor se le conoce como Ferro, pero ¿qué otro apodo ha tenido?',
+    placeholder: 'Escribe el apodo...',
+    correctAnswer: 'lupi',
+  },
+  {
+    id: 'v5',
+    subject: 'victor',
+    type: 'single-choice',
+    text: '¿De dónde son los padres de Ferro?',
+    options: ['Jienenses', 'Guatemaltecos', 'Salmantinos', 'Valencianos'],
+    correctAnswer: 0,
   },
 
   // ── CONJUNTAS ─────────────────────────────────────────────

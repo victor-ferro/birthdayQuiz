@@ -78,8 +78,10 @@ export function ResultsScreen({
 
               const userValue = typeof answer.value === 'string' ? answer.value : ''
               const hasCorrect = q.correctAnswer !== undefined
-              const isCorrect =
-                hasCorrect && normalizeAnswer(userValue) === normalizeAnswer(q.correctAnswer!)
+              const validAnswers = Array.isArray(q.correctAnswer)
+                ? q.correctAnswer.map(normalizeAnswer)
+                : q.correctAnswer !== undefined ? [normalizeAnswer(q.correctAnswer)] : []
+              const isCorrect = hasCorrect && validAnswers.includes(normalizeAnswer(userValue))
 
               return (
                 <li key={answer.questionId} className="space-y-1.5">

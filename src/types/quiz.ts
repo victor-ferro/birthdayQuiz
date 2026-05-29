@@ -7,7 +7,7 @@ export interface OpenQuestion {
   subject: QuestionSubject
   text: string
   placeholder?: string
-  correctAnswer?: string
+  correctAnswer?: string | string[]
 }
 
 export interface SingleChoiceQuestion {

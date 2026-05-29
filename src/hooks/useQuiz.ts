@@ -13,8 +13,11 @@ function computeScore(questions: Question[], answers: Answer[]): number {
     }
 
     if (q.type === 'open' && q.correctAnswer !== undefined) {
-      const userAnswer = typeof answer.value === 'string' ? answer.value : ''
-      return normalizeAnswer(userAnswer) === normalizeAnswer(q.correctAnswer) ? acc + 1 : acc
+      const userAnswer = normalizeAnswer(typeof answer.value === 'string' ? answer.value : '')
+      const valid = Array.isArray(q.correctAnswer)
+        ? q.correctAnswer.map(normalizeAnswer)
+        : [normalizeAnswer(q.correctAnswer)]
+      return valid.includes(userAnswer) ? acc + 1 : acc
     }
 
     return acc
