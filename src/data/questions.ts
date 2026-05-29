@@ -82,17 +82,25 @@ export const QUESTIONS: Question[] = [
     id: 'c1',
     subject: 'conjunta',
     type: 'single-choice',
-    text: '¿Dónde se conocieron Marcos y Víctor?',
-    options: ['En el trabajo', 'En la universidad', 'De toda la vida', 'Por amigos en común'],
-    correctAnswer: 1, // ← Cambia al índice correcto
+    text: '¿Dónde se conocieron Marcos y Ferro?',
+    options: ['Cuando Marcos le salvó la vida a Ferro', 'En el fútbol', 'Son amigos de la infancia', 'En bachiller'],
+    correctAnswer: 3, // ← Cambia al índice correcto
   },
   {
     id: 'c2',
     subject: 'conjunta',
-    type: 'open',
-    text: '¿Qué les desearías en este cumpleaños?',
-    placeholder: 'Un deseo, un mensaje, unas palabras...',
-    // Sin correctAnswer → reflexión libre
+    type: 'single-choice',
+    text: '¿Quién ha ido más veces al camping Arenal?',
+    options: ['Ferro', 'Marcos', 'Las mismas veces', 'Todas son incorrectas'],
+    correctAnswer: 2,
+  },
+  {
+    id: 'c3',
+    subject: 'conjunta',
+    type: 'single-choice',
+    text: '¿Qué famoso mote le pusieron Ferro y Marcos a Keko?',
+    options: ['Filemón', 'El tocaprimas', 'Las dos son correctas', 'Ninguna es correcta'],
+    correctAnswer: 2,
   },
 ]
 

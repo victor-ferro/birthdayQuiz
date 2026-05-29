@@ -19,24 +19,13 @@ export function OpenQuestion({ question, onSubmit }: OpenQuestionProps) {
         rows={4}
         className="w-full rounded-xl border border-border bg-surface/80 px-4 py-3.5 text-foreground placeholder:text-muted/60 resize-none focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-surface focus:border-primary transition-colors duration-200 text-sm leading-relaxed"
       />
-      <div className="flex items-center gap-2">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onSubmit('')}
-          className="text-muted/70 hover:text-muted text-xs px-3"
-        >
-          Saltar
-        </Button>
-        <Button
-          size="md"
-          disabled={text.trim().length === 0}
-          onClick={() => onSubmit(text.trim())}
-          className="flex-1"
-        >
-          Siguiente
-        </Button>
-      </div>
+      <Button
+        size="md"
+        onClick={() => onSubmit(text.trim())}
+        className="w-full"
+      >
+        Siguiente
+      </Button>
     </div>
   )
 }
