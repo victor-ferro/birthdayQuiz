@@ -34,4 +34,5 @@ export interface QuizState {
   currentIndex: number
   answers: Answer[]
   score: number
+  totalScorable: number
 }

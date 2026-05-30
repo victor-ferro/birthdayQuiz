@@ -7,6 +7,8 @@ import { Confetti } from '@/components/Confetti'
 
 interface Props {
   playerName?: string
+  playerScore?: number
+  playerTotalScorable?: number
   onPlayAgain?: () => void
 }
 
@@ -35,7 +37,7 @@ function PodiumSlot({ entry, rank, isMe }: { entry: LeaderboardEntry | undefined
   const colHeight = { 1: 'h-28', 2: 'h-20', 3: 'h-16' }[rank]
   const colBg = { 1: 'rgba(0,64,224,0.12)', 2: 'rgba(180,0,103,0.1)', 3: 'rgba(201,169,0,0.1)' }[rank]
   const ptsColor = { 1: '#0040e0', 2: '#b40067', 3: '#705d00' }[rank]
-  const avatarSize = { 1: 'w-20 h-20 text-xl', 2: 'w-14 h-14 text-base', 3: 'w-12 h-12 text-sm' }[rank]
+  const avatarSize = { 1: 'w-24 h-24 text-2xl', 2: 'w-18 h-18 text-lg', 3: 'w-16 h-16 text-base' }[rank]
 
   return (
     <div className={`flex flex-col items-center ${rank === 1 ? 'flex-[1.2] -translate-y-5' : 'flex-1'}`}>
@@ -50,12 +52,31 @@ function PodiumSlot({ entry, rank, isMe }: { entry: LeaderboardEntry | undefined
   )
 }
 
-export function LeaderboardScreen({ playerName, onPlayAgain }: Props) {
+export function LeaderboardScreen({ playerName, playerScore, playerTotalScorable, onPlayAgain }: Props) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     getLeaderboardRemote().then((data) => {
+      // If the current player hasn't been persisted yet (race condition between
+      // save and fetch), inject their entry optimistically so they see their rank.
+      if (playerName && playerScore !== undefined && playerTotalScorable !== undefined) {
+        const alreadyPresent = data.some(
+          (e) => e.name.toLowerCase() === playerName.toLowerCase()
+        )
+        if (!alreadyPresent) {
+          const optimistic: LeaderboardEntry = {
+            name: playerName,
+            score: playerScore,
+            totalScorable: playerTotalScorable,
+            timestamp: Date.now(),
+          }
+          const merged = [...data, optimistic].sort((a, b) => pts(b) - pts(a))
+          setEntries(merged)
+          setLoading(false)
+          return
+        }
+      }
       setEntries(data)
       setLoading(false)
     })
@@ -119,7 +140,7 @@ export function LeaderboardScreen({ playerName, onPlayAgain }: Props) {
                 >
                   <div className="flex items-center gap-3">
                     <span className="w-5 text-sm font-bold text-muted text-center">{i + 4}</span>
-                    <AvatarCircle name={entry.name} className="w-9 h-9 text-xs" />
+                    <AvatarCircle name={entry.name} className="w-12 h-12 text-sm" />
                     <span className="font-medium text-foreground text-sm">{entry.name}</span>
                     {isMe(entry) && <span className="text-xs font-semibold text-primary">(tú)</span>}
                   </div>

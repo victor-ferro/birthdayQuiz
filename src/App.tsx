@@ -38,6 +38,8 @@ function Quiz() {
       {state.screen === 'results' && (
         <LeaderboardScreen
           playerName={state.playerName}
+          playerScore={state.score}
+          playerTotalScorable={state.totalScorable}
           onPlayAgain={restart}
         />
       )}

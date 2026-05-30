@@ -33,6 +33,7 @@ const initialState: QuizState = {
   currentIndex: 0,
   answers: [],
   score: 0,
+  totalScorable: 0,
 }
 
 export function useQuiz(questions: Question[]) {
@@ -75,7 +76,7 @@ export function useQuiz(questions: Question[]) {
         })
         saveResponses(rows)
 
-        return { ...prev, answers, score: finalScore, screen: 'results' }
+        return { ...prev, answers, score: finalScore, totalScorable, screen: 'results' }
       }
 
       return { ...prev, answers, currentIndex: prev.currentIndex + 1 }
