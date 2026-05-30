@@ -32,3 +32,28 @@ export async function fetchAllResponses(): Promise<ResponseRow[]> {
   }
   return data ?? []
 }
+
+export interface LeaderboardRow {
+  id?: string
+  name: string
+  score: number
+  total_scorable: number
+  created_at?: string
+}
+
+export async function saveLeaderboardEntry(entry: Omit<LeaderboardRow, 'id' | 'created_at'>) {
+  const { error } = await supabase.from('leaderboard').insert(entry)
+  if (error) console.error('Supabase leaderboard insert error:', error)
+}
+
+export async function fetchLeaderboard(): Promise<LeaderboardRow[]> {
+  const { data, error } = await supabase
+    .from('leaderboard')
+    .select('*')
+    .order('created_at', { ascending: false })
+  if (error) {
+    console.error('Supabase leaderboard fetch error:', error)
+    return []
+  }
+  return data ?? []
+}

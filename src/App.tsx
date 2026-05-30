@@ -50,6 +50,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Quiz />} />
+        <Route path="/ranking" element={<LeaderboardScreen />} />
         <Route path="/answers" element={<AnswersScreen />} />
       </Routes>
     </BrowserRouter>
